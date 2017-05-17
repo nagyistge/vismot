@@ -21,6 +21,7 @@ This project features data visualization of transit train schedules. The web app
 * `$ ng new vismot`
 * `$ cd vismot`
 * `$ ng g c home`
+* `$ bower init`
 
 
 ## Technologies Used

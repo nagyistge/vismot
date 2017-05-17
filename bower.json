@@ -1,0 +1,17 @@
+{
+  "name": "vismot",
+  "description": "This project features data visualization of transit train schedules.",
+  "main": "",
+  "authors": [
+    "Patrick McGreevy <patrick7490@icloud.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
