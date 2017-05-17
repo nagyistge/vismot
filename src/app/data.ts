@@ -10,6 +10,7 @@ export const STOPS: string[] = [
   'Wilshire/Western'
 ];
 
+export const SCHEDULE_TITLE: string = 'Purple - Westbound (Friday & Saturday late night)';
 // Westbound Purple (Fri/Sat night)
 export const STOP_TIMES: string[][] = [
   [
