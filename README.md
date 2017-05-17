@@ -23,6 +23,7 @@ This project features data visualization of transit train schedules. The web app
 * `$ ng g c home`
 * `$ bower init`
 * `$ bower install bootstrap --save`
+* `$ ng g c schedule-tables`
 
 
 ## Technologies Used

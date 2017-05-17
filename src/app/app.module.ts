@@ -6,11 +6,13 @@ import { routing } from './app.routing';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { ScheduleTablesComponent } from './schedule-tables/schedule-tables.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    ScheduleTablesComponent
   ],
   imports: [
     BrowserModule,
