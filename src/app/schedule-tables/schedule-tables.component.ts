@@ -12,6 +12,7 @@ import { STOPS, PURPLE_LINE, STOP_TIMES, SCHEDULE_TITLE, NETWORK } from '../data
 export class ScheduleTablesComponent implements OnInit {
   private d3: D3; // <-- Define the private member which will hold the d3 reference
   private scheduleTitle: string;
+  private route;
   private mapWidth: number;
   private mapHeight: number;
 
@@ -21,6 +22,7 @@ export class ScheduleTablesComponent implements OnInit {
 
   ngOnInit() {
     this.scheduleTitle = SCHEDULE_TITLE;
+    this.route = PURPLE_LINE;
     this.drawTable();
     this.establishScale(NETWORK, 50);
     this.drawMap(NETWORK, 50);
@@ -38,33 +40,34 @@ export class ScheduleTablesComponent implements OnInit {
                   .append('tr');
 
     // write cells
-    for (let i = 0; i < PURPLE_LINE.length; i++) {
-      tr.append('td')
-        .html(function(m) { return m[i]; });
-    }
+    var td = tr.selectAll('td')
+                  .data(function(d) { return d; }) // connect all cells of each row to that row's data element
+                  .enter()
+                  .append('td')
+                  .html(function(d) { return d.time; });
 
-    // create column headers
-    var columns = [];
-
-    // collect stops used by Purple line
-    var purpleLineStops: any[] = PURPLE_LINE.map(
+    // collect (ordered) stops used by chosen route
+    var routeStops: any[] = this.route.map(
       function(num) {
         return STOPS.find(function(stop) { return stop.id == num; });
       });
-    // create table headers for Purple line
-    purpleLineStops.forEach(function(stop, i) {
+
+
+    // populate data for column headers
+    var columns = [];
+    routeStops.forEach(function(stop, i) {
       columns.push({
-        head: stop.name,
-        cl: 'num',
-        html: function (row) { return row[i]; }
+        text: stop.name,
+        htmlClass: 'num'
       });
     });
+    // write table header with column data
     table.append('thead').append('tr')
          .selectAll('th')
          .data(columns).enter()
          .append('th')
-         .attr('class', function(d) { return d.cl; })
-         .text(function(d) { return d.head; });
+         .attr('class', function(d) { return d.htmlClass; })
+         .text(function(d) { return d.text; });
 
   }
 

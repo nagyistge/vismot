@@ -30,7 +30,10 @@ lineSequence:
 
 stopTimes:
   [
-    <string>,
+    {
+      stopId: <integer>,
+      time:   <string>
+    },
     ...
   ]
 */
@@ -158,65 +161,65 @@ export const NETWORK: any[] = [ // type: nodes
 // Westbound Purple (Fri/Sat night)
 export const SCHEDULE_TITLE: string = 'Purple - Westbound (Friday & Saturday late night)';
 export const PURPLE_LINE: number[] = [1, 2, 3, 4, 5, 6, 7, 8];  // type: lineSequence
-export const STOP_TIMES: string[][] = [ // type: stopTimes
+export const STOP_TIMES: any[][] = [ // type: stopTimes
   [
-    '12:31',
-    '12:33',
-    '12:34',
-    '12:36',
-    '12:38',
-    '12:40',
-    '12:42',
-    '12:44'
+    { stopId: 1, time: '12:31' },
+    { stopId: 2, time: '12:33' },
+    { stopId: 3, time: '12:34' },
+    { stopId: 4, time: '12:36' },
+    { stopId: 5, time: '12:38' },
+    { stopId: 6, time: '12:40' },
+    { stopId: 7, time: '12:42' },
+    { stopId: 8, time: '12:44' }
   ],
   [
-    '12:51',
-    '12:53',
-    '12:54',
-    '12:56',
-    '12:58',
-    '1:00',
-    '1:02',
-    '1:04'
+    { stopId: 1, time: '12:51' },
+    { stopId: 2, time: '12:53' },
+    { stopId: 3, time: '12:54' },
+    { stopId: 4, time: '12:56' },
+    { stopId: 5, time: '12:58' },
+    { stopId: 6, time: '1:00' },
+    { stopId: 7, time: '1:02' },
+    { stopId: 8, time: '1:04' }
   ],
   [
-    '1:11',
-    '1:13',
-    '1:14',
-    '1:16',
-    '1:18',
-    '1:20',
-    '1:22',
-    '1:24'
+    { stopId: 1, time: '1:11' },
+    { stopId: 2, time: '1:13' },
+    { stopId: 3, time: '1:14' },
+    { stopId: 4, time: '1:16' },
+    { stopId: 5, time: '1:18' },
+    { stopId: 6, time: '1:20' },
+    { stopId: 7, time: '1:22' },
+    { stopId: 8, time: '1:24' }
   ],
   [
-    '1:31',
-    '1:33',
-    '1:34',
-    '1:36',
-    '1:38',
-    '1:40',
-    '1:42',
-    '1:44'
+    { stopId: 1, time: '1:31' },
+    { stopId: 2, time: '1:33' },
+    { stopId: 3, time: '1:34' },
+    { stopId: 4, time: '1:36' },
+    { stopId: 5, time: '1:38' },
+    { stopId: 6, time: '1:40' },
+    { stopId: 7, time: '1:42' },
+    { stopId: 8, time: '1:44' }
   ],
   [
-    '1:51',
-    '1:53',
-    '1:54',
-    '1:56',
-    '1:58',
-    '2:00',
-    '2:02',
-    '2:04'
+    { stopId: 1, time: '1:51' },
+    { stopId: 2, time: '1:53' },
+    { stopId: 3, time: '1:54' },
+    { stopId: 4, time: '1:56' },
+    { stopId: 5, time: '1:58' },
+    { stopId: 6, time: '2:00' },
+    { stopId: 7, time: '2:02' },
+    { stopId: 8, time: '2:04' }
   ],
   [
-    '2:11',
-    '2:13',
-    '2:14',
-    '2:16',
-    '2:18',
-    '2:20',
-    '2:22',
-    '2:24'
+    { stopId: 1, time: '2:11' },
+    { stopId: 2, time: '2:13' },
+    { stopId: 3, time: '2:14' },
+    { stopId: 4, time: '2:16' },
+    { stopId: 5, time: '2:18' },
+    { stopId: 6, time: '2:20' },
+    { stopId: 7, time: '2:22' },
+    { stopId: 8, time: '2:24' }
   ]
 ];
