@@ -69,6 +69,13 @@ export class ScheduleTablesComponent implements OnInit {
          .attr('class', function(d) { return d.htmlClass; })
          .text(function(d) { return d.text; });
 
+    td.on('mouseover', function(d) {
+      d3.select('#node-' + d.stopId)
+        .classed('node-highlighted', true);
+    }).on('mouseout', function(d) {
+      d3.select('#node-' + d.stopId)
+        .classed('node-highlighted', false);
+    });
   }
 
   drawMap(graphNodes, scale) {
