@@ -113,10 +113,10 @@ export class ScheduleTablesComponent implements OnInit {
 
   drawLine(svg, coordinates, scale) {
     return svg.append('line')
-    .attr('x1', coordinates.x1 * scale)
-    .attr('y1', coordinates.y1 * scale)
-    .attr('x2', coordinates.x2 * scale)
-    .attr('y2', coordinates.y2 * scale)
-    .attr('class', 'network-line');
+              .attr('x1', coordinates.x1 * scale)
+              .attr('y1', coordinates.y1 * scale)
+              .attr('x2', coordinates.x2 * scale)
+              .attr('y2', coordinates.y2 * scale)
+              .attr('class', 'network-line');
   }
 }
