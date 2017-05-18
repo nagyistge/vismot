@@ -7,6 +7,9 @@
 ## Description
 This project features data visualization of transit train schedules. The web application was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.1. D3 is used to parse and display the data in interactive ways.
 
+## Screenshots
+![Time-table with map](/readme_screenshots/screenshot-1.png)
+
 ## Setup
 1. Set project root as working directory in CLI after cloning repo.
 2. Run `$ npm install`.
@@ -45,7 +48,8 @@ This project features data visualization of transit train schedules. The web app
 * Improve animation based on mouse-over along time axis on diagram.
 * Add additional lines, in order: Red, Gold, Expo, Green, Blue.
 * Create filter controls for which lines, directions, and day of week for display.
-* Add pages for other transit systems, incorporating their [GTFS](https://developers.google.com/transit/gtfs/) as the raw datasets.
+* Compile API for visualizing any transit system, using pre-formatted data.
+* Add pages for other transit systems, incorporating their [GTFS](https://developers.google.com/transit/gtfs/) as the raw datasets that get parsed.
 
 ## Known Bugs
 
