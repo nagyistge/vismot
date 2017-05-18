@@ -1,5 +1,43 @@
-// Purple Line (starting at east terminus)
-export const STOPS: any[] = [
+/*
+DATA TYPES
+###############################
+stops:
+  [
+    {
+      name: <string>,
+      id: <integer>,
+      color: <string>
+    },
+    ...
+  ]
+
+nodes:
+  [
+    {
+      stopId:   <integer>,
+      x:        <integer>,
+      y:        <integer>,
+      children: <integer[]>
+    },
+    ...
+  ]
+
+lineSequence:
+  [
+    <integer>,
+    ...
+  ]
+
+stopTimes:
+  [
+    <string>,
+    ...
+  ]
+*/
+
+
+// Purple & Red Line stops (starting at east terminus)
+export const STOPS: any[] = [   // type:  stops
   { name: 'Union Station', id:  1, color: 'black' },
   { name: 'Civic Center/Grand Park', id: 2, color: 'black' },
   { name: 'Pershing Square', id: 3, color: 'black' },
@@ -18,7 +56,7 @@ export const STOPS: any[] = [
   { name: 'North Hollywood', id: 16, color: 'red' }
 ];
 
-export const NETWORK: any[] = [
+export const NETWORK: any[] = [ // type: nodes
   {
     stopId: 1,
     x: 8,
@@ -119,8 +157,8 @@ export const NETWORK: any[] = [
 
 // Westbound Purple (Fri/Sat night)
 export const SCHEDULE_TITLE: string = 'Purple - Westbound (Friday & Saturday late night)';
-export const PURPLE_LINE: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
-export const STOP_TIMES: string[][] = [
+export const PURPLE_LINE: number[] = [1, 2, 3, 4, 5, 6, 7, 8];  // type: lineSequence
+export const STOP_TIMES: string[][] = [ // type: stopTimes
   [
     '12:31',
     '12:33',
