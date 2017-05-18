@@ -1,17 +1,26 @@
 // Purple Line (starting at east terminus)
-export const STOPS: string[] = [
-  'Union Station',
-  'Civic Center/Grand Park',
-  'Pershing Square',
-  '7th St/Metro Center',
-  'Westlake/MacArthur Park',
-  'Wilshire/Vermont',
-  'Wilshire/Normandie',
-  'Wilshire/Western'
+export const STOPS: any[] = [
+  { name: 'Union Station', id:  1, color: 'black' },
+  { name: 'Civic Center/Grand Park', id: 2, color: 'black' },
+  { name: 'Pershing Square', id: 3, color: 'black' },
+  { name: '7th St/Metro Center', id: 4, color: 'black' },
+  { name: 'Westlake/MacArthur Park', id: 5, color: 'black' },
+  { name: 'Wilshire/Vermont', id: 6, color: 'black' },
+  { name: 'Wilshire/Normandie', id: 7, color: 'purple' },
+  { name: 'Wilshire/Western', id: 8, color: 'purple' },
+  { name: 'Vermont/Beverly', id: 9, color: 'red' },
+  { name: 'Vermont/Santa Monica', id: 10, color: 'red' },
+  { name: 'Vermont/Sunset', id: 11, color: 'red' },
+  { name: 'Hollywood/Western', id: 12, color: 'red' },
+  { name: 'Hollywood/Vine', id: 13, color: 'red' },
+  { name: 'Hollywood/Highland', id: 14, color: 'red' },
+  { name: 'Universal/Studio City', id: 15, color: 'red' },
+  { name: 'North Hollywood', id: 16, color: 'red' }
 ];
 
 // Westbound Purple (Fri/Sat night)
 export const SCHEDULE_TITLE: string = 'Purple - Westbound (Friday & Saturday late night)';
+export const PURPLE_LINE: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
 export const STOP_TIMES: string[][] = [
   [
     '12:31',

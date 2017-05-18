@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { D3Service, D3, Selection, ScaleLinear, Axis } from 'd3-ng2-service';
 
 // Data
-import { STOPS, STOP_TIMES, SCHEDULE_TITLE } from '../data';
+import { STOPS, PURPLE_LINE, STOP_TIMES, SCHEDULE_TITLE } from '../data';
 
 @Component({
   selector: 'app-schedule-tables',
@@ -34,16 +34,23 @@ export class ScheduleTablesComponent implements OnInit {
                   .append('tr');
 
     // write cells
-    for (let i = 0; i < STOPS.length; i++) {
+    for (let i = 0; i < PURPLE_LINE.length; i++) {
       tr.append('td')
         .html(function(m) { return m[i]; });
     }
 
     // create column headers
     var columns = [];
-    STOPS.forEach(function(stop, i) {
+
+    // collect stops used by Purple line
+    var purpleLineStops: any[] = PURPLE_LINE.map(
+      function(num) {
+        return STOPS.find(function(stop) { return stop.id == num; });
+      });
+    // create table headers for Purple line
+    purpleLineStops.forEach(function(stop, i) {
       columns.push({
-        head: stop,
+        head: stop.name,
         cl: 'num',
         html: function (row) { return row[i]; }
       });
