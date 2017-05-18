@@ -99,7 +99,6 @@ export class ScheduleTablesComponent implements OnInit {
 
     // color stops exclusive to Purple line
     var purpleStops = STOPS.filter(function(stop) { return stop.color == 'purple'; });
-    console.log(purpleStops);
     var purpleNodeIds = purpleStops.map(function(stop) { return '#node-' + stop.id; });
     purpleNodeIds.forEach(function(nodeId) {
       d3.select(nodeId).attr('class', 'network-node node-purple');
@@ -107,7 +106,6 @@ export class ScheduleTablesComponent implements OnInit {
 
     // color stops exclusive to Red line
     var redStops = STOPS.filter(function(stop) { return stop.color == 'red'; });
-    console.log(redStops);
     var redNodeIds = redStops.map(function(stop) { return '#node-' + stop.id; });
     redNodeIds.forEach(function(nodeId) {
       d3.select(nodeId).attr('class', 'network-node node-red');
