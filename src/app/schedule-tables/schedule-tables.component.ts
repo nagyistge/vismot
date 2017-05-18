@@ -22,8 +22,8 @@ export class ScheduleTablesComponent implements OnInit {
   ngOnInit() {
     this.scheduleTitle = SCHEDULE_TITLE;
     this.drawTable();
-    this.establishScale(NETWORK, 25);
-    this.drawMap(NETWORK, 25);
+    this.establishScale(NETWORK, 50);
+    this.drawMap(NETWORK, 50);
   }
 
   drawTable() {
