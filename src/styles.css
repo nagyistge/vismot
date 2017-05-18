@@ -4,8 +4,9 @@
 }
 
 .network-node {
-  fill: black;
+  fill: white;
   stroke: #000;
+  stroke-width: 2px;
 }
 
 .network-line {
@@ -15,13 +16,13 @@
 }
 
 .node-black {
-  fill: black;
+  stroke: black;
 }
 
 .node-purple {
-  fill: purple;
+  stroke: purple;
 }
 
 .node-red {
-  fill: red;
+  stroke: red;
 }

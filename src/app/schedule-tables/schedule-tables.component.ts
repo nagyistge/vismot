@@ -78,7 +78,7 @@ export class ScheduleTablesComponent implements OnInit {
 
     var self = this;
     graphNodes.forEach(function(node) {
-      self.drawPoint(svgContainer, node, scale);
+      self.drawNode(svgContainer, node, scale);
       node.children.forEach(function(childId) {
         let childNode = graphNodes.find(function(child) { return child.stopId == childId; });
         if (childNode) {  // test that child successfully found
@@ -93,6 +93,22 @@ export class ScheduleTablesComponent implements OnInit {
         }
       });
     });
+
+    // color stops exclusive to Purple line
+    var purpleStops = STOPS.filter(function(stop) { return stop.color == 'purple'; });
+    console.log(purpleStops);
+    var purpleNodeIds = purpleStops.map(function(stop) { return '#node-' + stop.id; });
+    purpleNodeIds.forEach(function(nodeId) {
+      d3.select(nodeId).attr('class', 'network-node node-purple');
+    });
+
+    // color stops exclusive to Red line
+    var redStops = STOPS.filter(function(stop) { return stop.color == 'red'; });
+    console.log(redStops);
+    var redNodeIds = redStops.map(function(stop) { return '#node-' + stop.id; });
+    redNodeIds.forEach(function(nodeId) {
+      d3.select(nodeId).attr('class', 'network-node node-red');
+    });
   }
 
   establishScale(graphNodes, scale) {
@@ -104,10 +120,10 @@ export class ScheduleTablesComponent implements OnInit {
     this.mapHeight = (yMax + 1) * scale;
   }
 
-  drawPoint(svg, coordinates, scale) {
-    return svg.append('circle').attr('class', 'network-node')
-              .attr('cx', coordinates.x * scale)
-              .attr('cy', coordinates.y * scale)
+  drawNode(svg, node, scale) {
+    return svg.append('circle').attr('class', 'network-node').attr('id', 'node-' + node.stopId)
+              .attr('cx', node.x * scale)
+              .attr('cy', node.y * scale)
               .attr('r', 5);
   }
 
