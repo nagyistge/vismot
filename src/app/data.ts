@@ -18,6 +18,105 @@ export const STOPS: any[] = [
   { name: 'North Hollywood', id: 16, color: 'red' }
 ];
 
+export const NETWORK: any[] = [
+  {
+    stopId: 1,
+    x: 8,
+    y: 1,
+    children: [2]
+  },
+  {
+    stopId: 2,
+    x: 7,
+    y: 1,
+    children: [3]
+  },
+  {
+    stopId: 3,
+    x: 6,
+    y: 1,
+    children: [4]
+  },
+  {
+    stopId: 4,
+    x: 5,
+    y: 1,
+    children: [5]
+  },
+  {
+    stopId: 5,
+    x: 4,
+    y: 1,
+    children: [6]
+  },
+  {
+    stopId: 6,
+    x: 3,
+    y: 1,
+    children: [7, 9]
+  },
+  {
+    stopId: 7,
+    x: 2,
+    y: 1,
+    children: [8]
+  },
+  {
+    stopId: 8,
+    x: 1,
+    y: 1,
+    children: []
+  },
+  {
+    stopId: 9,
+    x: 3,
+    y: 2,
+    children: [10]
+  },
+  {
+    stopId: 10,
+    x: 3,
+    y: 3,
+    children: [11]
+  },
+  {
+    stopId: 11,
+    x: 3,
+    y: 4,
+    children: [12]
+  },
+  {
+    stopId: 12,
+    x: 3,
+    y: 5,
+    children: [13]
+  },
+  {
+    stopId: 13,
+    x: 3,
+    y: 6,
+    children: [14]
+  },
+  {
+    stopId: 14,
+    x: 3,
+    y: 7,
+    children: [15]
+  },
+  {
+    stopId: 15,
+    x: 3,
+    y: 8,
+    children: [16]
+  },
+  {
+    stopId: 16,
+    x: 3,
+    y: 9,
+    children: []
+  }
+];
+
 // Westbound Purple (Fri/Sat night)
 export const SCHEDULE_TITLE: string = 'Purple - Westbound (Friday & Saturday late night)';
 export const PURPLE_LINE: number[] = [1, 2, 3, 4, 5, 6, 7, 8];

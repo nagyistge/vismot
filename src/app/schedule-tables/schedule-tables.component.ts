@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { D3Service, D3, Selection, ScaleLinear, Axis } from 'd3-ng2-service';
 
 // Data
-import { STOPS, PURPLE_LINE, STOP_TIMES, SCHEDULE_TITLE } from '../data';
+import { STOPS, PURPLE_LINE, STOP_TIMES, SCHEDULE_TITLE, NETWORK } from '../data';
 
 @Component({
   selector: 'app-schedule-tables',
@@ -12,6 +12,8 @@ import { STOPS, PURPLE_LINE, STOP_TIMES, SCHEDULE_TITLE } from '../data';
 export class ScheduleTablesComponent implements OnInit {
   private d3: D3; // <-- Define the private member which will hold the d3 reference
   private scheduleTitle: string;
+  private mapWidth: number;
+  private mapHeight: number;
 
   constructor(d3Service: D3Service) {
      this.d3 = d3Service.getD3(); // obtain the d3 object from the D3 Service
@@ -20,6 +22,8 @@ export class ScheduleTablesComponent implements OnInit {
   ngOnInit() {
     this.scheduleTitle = SCHEDULE_TITLE;
     this.drawTable();
+    this.establishScale(NETWORK, 25);
+    this.drawMap(NETWORK, 25);
   }
 
   drawTable() {
@@ -62,5 +66,57 @@ export class ScheduleTablesComponent implements OnInit {
          .attr('class', function(d) { return d.cl; })
          .text(function(d) { return d.head; });
 
+  }
+
+  drawMap(graphNodes, scale) {
+    var d3 = this.d3;
+
+    var svgContainer = d3.select('#route-map').append('svg')
+      .attr('class', 'svg-bordered')
+      .attr('width', this.mapWidth)
+      .attr('height', this.mapHeight);
+
+    var self = this;
+    graphNodes.forEach(function(node) {
+      self.drawPoint(svgContainer, node, scale);
+      node.children.forEach(function(childId) {
+        let childNode = graphNodes.find(function(child) { return child.stopId == childId; });
+        if (childNode) {  // test that child successfully found
+          let coords = {
+            x1: node.x,
+            y1: node.y,
+            x2: childNode.x,
+            y2: childNode.y
+          };
+          // draw line from node to its child
+          self.drawLine(svgContainer, coords, scale);
+        }
+      });
+    });
+  }
+
+  establishScale(graphNodes, scale) {
+    var xValues = graphNodes.map(function(el) { return el.x; });
+    var xMax = Math.max.apply(null, graphNodes.map(function(el) { return el.x; }));
+    var yMax = Math.max.apply(null, graphNodes.map(function(el) { return el.y; }));
+
+    this.mapWidth = (xMax + 1) * scale;
+    this.mapHeight = (yMax + 1) * scale;
+  }
+
+  drawPoint(svg, coordinates, scale) {
+    return svg.append('circle').attr('class', 'network-node')
+              .attr('cx', coordinates.x * scale)
+              .attr('cy', coordinates.y * scale)
+              .attr('r', 5);
+  }
+
+  drawLine(svg, coordinates, scale) {
+    return svg.append('line')
+    .attr('x1', coordinates.x1 * scale)
+    .attr('y1', coordinates.y1 * scale)
+    .attr('x2', coordinates.x2 * scale)
+    .attr('y2', coordinates.y2 * scale)
+    .attr('class', 'network-line');
   }
 }

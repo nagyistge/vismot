@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+.svg-bordered {
+  border: 5px black solid;
+}
+
+.network-node {
+  fill: black;
+  stroke: #000;
+}
+
+.network-line {
+  fill: none;
+  stroke-width: 2px;
+  stroke: black;
+}
+
+.node-black {
+  fill: black;
+}
+
+.node-purple {
+  fill: purple;
+}
+
+.node-red {
+  fill: red;
+}
