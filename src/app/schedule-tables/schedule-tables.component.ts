@@ -69,12 +69,15 @@ export class ScheduleTablesComponent implements OnInit {
          .attr('class', function(d) { return d.htmlClass; })
          .text(function(d) { return d.text; });
 
+    // register nodes to listen to mouseover for table cells
     td.on('mouseover', function(d) {
       d3.select('#node-' + d.stopId)
         .classed('node-highlighted', true);
+      d3.select('#time-selected').text(d.time);
     }).on('mouseout', function(d) {
       d3.select('#node-' + d.stopId)
         .classed('node-highlighted', false);
+      d3.select('#time-selected').text('');
     });
   }
 
@@ -91,7 +94,7 @@ export class ScheduleTablesComponent implements OnInit {
       self.drawNode(svgContainer, node, scale);
       node.children.forEach(function(childId) {
         let childNode = graphNodes.find(function(child) { return child.stopId == childId; });
-        if (childNode) {  // test that child successfully found
+        if (childNode) {  // test that child was successfully found
           let coords = {
             x1: node.x,
             y1: node.y,
