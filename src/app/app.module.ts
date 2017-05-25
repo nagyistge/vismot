@@ -8,12 +8,14 @@ import { D3Service } from 'd3-ng2-service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ScheduleTablesComponent } from './schedule-tables/schedule-tables.component';
+import { MareyComponent } from './marey/marey.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ScheduleTablesComponent
+    ScheduleTablesComponent,
+    MareyComponent
   ],
   imports: [
     BrowserModule,

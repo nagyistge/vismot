@@ -28,6 +28,7 @@ This project features data visualization of transit train schedules. The web app
 * `$ bower install bootstrap --save`
 * `$ ng g c schedule-tables`
 * `$ npm install d3-ng2-service --save`
+* `$ ng g c marey`
 
 
 ## Technologies Used
