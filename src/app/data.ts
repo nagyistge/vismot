@@ -163,21 +163,21 @@ export const SCHEDULE_TITLE: string = 'Purple - Westbound (Friday & Saturday lat
 export const PURPLE_LINE: number[] = [1, 2, 3, 4, 5, 6, 7, 8];  // type: lineSequence
 export const STOP_TIMES: any[][] = [ // type: stopTimes
   [
-    { stopId: 1, time: '12:31' },
-    { stopId: 2, time: '12:33' },
-    { stopId: 3, time: '12:34' },
-    { stopId: 4, time: '12:36' },
-    { stopId: 5, time: '12:38' },
-    { stopId: 6, time: '12:40' },
-    { stopId: 7, time: '12:42' },
-    { stopId: 8, time: '12:44' }
+    { stopId: 1, time: '00:31' },
+    { stopId: 2, time: '00:33' },
+    { stopId: 3, time: '00:34' },
+    { stopId: 4, time: '00:36' },
+    { stopId: 5, time: '00:38' },
+    { stopId: 6, time: '00:40' },
+    { stopId: 7, time: '00:42' },
+    { stopId: 8, time: '00:44' }
   ],
   [
-    { stopId: 1, time: '12:51' },
-    { stopId: 2, time: '12:53' },
-    { stopId: 3, time: '12:54' },
-    { stopId: 4, time: '12:56' },
-    { stopId: 5, time: '12:58' },
+    { stopId: 1, time: '00:51' },
+    { stopId: 2, time: '00:53' },
+    { stopId: 3, time: '00:54' },
+    { stopId: 4, time: '00:56' },
+    { stopId: 5, time: '00:58' },
     { stopId: 6, time: '1:00' },
     { stopId: 7, time: '1:02' },
     { stopId: 8, time: '1:04' }

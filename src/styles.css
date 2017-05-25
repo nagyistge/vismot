@@ -30,3 +30,8 @@
 .node-highlighted {
   fill: black;
 }
+
+.marey-point {
+  stroke-width: 0;
+  fill: black;
+}
