@@ -35,3 +35,17 @@
   stroke-width: 0;
   fill: black;
 }
+
+.line {
+  fill: none;
+  stroke-width: 1px;
+  stroke: steelblue;
+}
+
+.marey-line {
+  stroke-width: 2px;
+}
+
+.route-purple {
+  stroke: purple;
+}
