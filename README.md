@@ -29,6 +29,8 @@ This project features data visualization of transit train schedules. The web app
 * `$ ng g c schedule-tables`
 * `$ npm install d3-ng2-service --save`
 * `$ ng g c marey`
+* `$ ng g class trip.model`
+* `$ ng g class route.model`
 
 
 ## Technologies Used
