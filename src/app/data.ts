@@ -1,5 +1,5 @@
 // Import models
-import { Stop, Trip } from './trip.model';
+import { Arrival, Trip } from './trip.model';
 import { Route } from './route.model';
 
 /*
@@ -230,7 +230,7 @@ export const STOP_TIMES: any[][] = [ // type: stopTimes
 
 
 let route_trips: Trip[] = STOP_TIMES.map(function(trip) {
-  let stopTimes: Stop[] = trip.map(function(stopTime) { return new Stop(parseTime(stopTime.time), stopTime.stopId); })
+  let stopTimes: Arrival[] = trip.map(function(stopTime) { return new Arrival(parseTime(stopTime.time), stopTime.stopId); })
   return new Trip(stopTimes);
 });
 export const PURPLE_ROUTE: Route = new Route(PURPLE_LINE, route_trips, 'purple', 'westbound', 'Friday & Saturday late night');
