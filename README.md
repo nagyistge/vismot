@@ -48,9 +48,11 @@ This project features data visualization of transit train schedules. The web app
 * Display programmatically table of stop times for [LA Metro's](https://www.metro.net/) westbound **Purple Line**.
 * Draw conceptual route path of line with corresponding station highlighted when data element in table is moused-over.
 * Create [Marey diagram](https://sphysics.wordpress.com/11-u-physics/kinematics/paris-lyon-1885-train-schedule/) for schedule.
+* Add ability to graph multiple lines and directions on same graph.
 * Improve animation based on mouse-over along time axis on diagram.
 * Add additional lines, in order: Red, Gold, Expo, Green, Blue.
 * Create filter controls for which lines, directions, and day of week for display.
+* Handle interlining/through-routing (i.e. one vehicle changes lines along its complete route).
 * Compile API for visualizing any transit system, using pre-formatted data.
 * Add pages for other transit systems, incorporating their [GTFS](https://developers.google.com/transit/gtfs/) as the raw datasets that get parsed.
 
