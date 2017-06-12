@@ -2,7 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { D3Service, D3, Selection, ScaleLinear, Axis } from 'd3-ng2-service';
 
 // Data
-import { STOPS, PURPLE_LINE, STOP_TIMES, SCHEDULE_TITLE, NETWORK } from '../data';
+import { Trip } from '../trip.model';
+import { Route } from '../route.model';
+import {
+  STOPS,
+  NETWORK,
+  PURPLE_WESTBOUND_LATE,
+  PURPLE_WESTBOUND_LATE_ROUTE
+ } from '../data';
 
 @Component({
   selector: 'app-schedule-tables',
@@ -11,8 +18,7 @@ import { STOPS, PURPLE_LINE, STOP_TIMES, SCHEDULE_TITLE, NETWORK } from '../data
 })
 export class ScheduleTablesComponent implements OnInit {
   private d3: D3; // <-- Define the private member which will hold the d3 reference
-  private scheduleTitle: string;
-  private route;
+  private route: Route;
   private mapWidth: number;
   private mapHeight: number;
 
@@ -21,33 +27,37 @@ export class ScheduleTablesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.scheduleTitle = SCHEDULE_TITLE;
-    this.route = PURPLE_LINE;
-    this.drawTable();
+    this.route = PURPLE_WESTBOUND_LATE_ROUTE;
+    this.drawTable(this.route);
     this.establishScale(NETWORK, 50);
     this.drawMap(NETWORK, 50);
   }
 
-  drawTable() {
+  drawTable(route: Route) {
     var d3 = this.d3;
 
     // init table
     var table = d3.select('#schedule-container').append('table').attr('class', 'table');
 
+    // format data into nested arrays
+    let stopsTable = route.trips.map(function(trip) {
+      return trip.stops;
+    });
     // create row for each element
     var tr = table.selectAll('tr')
-                  .data(STOP_TIMES).enter()
+                  .data(stopsTable).enter()
                   .append('tr');
 
+    let self = this;
     // write cells
     var td = tr.selectAll('td')
                   .data(function(d) { return d; }) // connect all cells of each row to that row's data element
                   .enter()
                   .append('td')
-                  .html(function(d) { return d.time; });
+                  .html(function(d) { return self.timeFormat(d.time); });
 
     // collect (ordered) stops used by chosen route
-    var routeStops: any[] = this.route.map(
+    var routeStops: any[] = this.route.stopSequence.map(
       function(num) {
         return STOPS.find(function(stop) { return stop.id == num; });
       });

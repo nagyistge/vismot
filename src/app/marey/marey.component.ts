@@ -4,7 +4,12 @@ import { D3Service, D3, Selection, ScaleLinear, ScaleOrdinal, Axis } from 'd3-ng
 // Data
 import { Trip } from '../trip.model';
 import { Route } from '../route.model';
-import { STOPS, PURPLE_LINE, STOP_TIMES, SCHEDULE_TITLE, NETWORK, PURPLE_ROUTE } from '../data';
+import {
+  STOPS,
+  NETWORK,
+  PURPLE_WESTBOUND_SEQUENCE,
+  PURPLE_WESTBOUND_LATE_ROUTE
+ } from '../data';
 
 
 @Component({
@@ -25,11 +30,13 @@ export class MareyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.parseData(PURPLE_ROUTE);
-    this.drawDiagram();
+    let route: Route = PURPLE_WESTBOUND_LATE_ROUTE;
+
+    this.parseData(route);
+    this.drawDiagram(route);
   }
 
-  drawDiagram() {
+  drawDiagram(route: Route) {
     var d3 = this.d3;
 
     var margin = {top: 150, right: 20, bottom: 30, left: 50};
@@ -44,7 +51,8 @@ export class MareyComponent implements OnInit {
                       .attr("transform",
                             "translate(" + margin.left + "," + margin.top + ")");
 
-    let stopData =  PURPLE_LINE.map(function(id) {
+    let stopsIncluded = route.stopSequence;
+    let stopData =  stopsIncluded.map(function(id) {
       return {
         stopId: id,
         stopName: STOPS.find(function(stop) {
@@ -63,17 +71,18 @@ export class MareyComponent implements OnInit {
     });
 
     let stopIdsScale = d3.scaleLinear()
-                         .domain([1, PURPLE_LINE.length+1])
+                         .domain([1, route.stopSequence.length+1])
                          .range([0, this.diagramWidth]);
     let stopsScale = d3.scaleBand()
                        .domain(stopNames)
                        .range([0, this.diagramWidth]);
     let timeScale = d3.scaleTime()
-                      .domain([this.earliestTime(PURPLE_ROUTE), this.latestTime(PURPLE_ROUTE)])
+                      .domain([this.earliestTime(route), this.latestTime(route)])
                       .range([0, this.diagramHeight]);
 
-    this.drawPoints(PURPLE_ROUTE, stopsScale, timeScale);
-    this.drawLines(PURPLE_ROUTE, stopIdsScale, timeScale);
+    this.drawPoints(route, stopIdsScale, timeScale);
+    this.drawLines(route, stopIdsScale, timeScale);
+
 
     let xAxis = d3.axisTop(stopsScale);
     let yAxis = d3.axisLeft(timeScale);
@@ -97,6 +106,7 @@ export class MareyComponent implements OnInit {
 
   drawPoints(route: Route, xScale, yScale) {
     let d3 = this.d3;
+    let columnForStopId = this.stopColumnAligner(route.stopSequence);
 
     let trips = route.trips.map(function(trip) {
       return trip.stops.map(function(arrival) {
@@ -110,7 +120,8 @@ export class MareyComponent implements OnInit {
         };
       });
     });
-    let margin = this.diagramWidth / PURPLE_LINE.length / 2;
+    let margin = this.diagramWidth / route.stopSequence.length / 2;
+
     for (let i = 0; i < trips.length; i++) {
       // add group of circles for each trip
       let newGroup = this.plotArea.append('g').attr('id', 'marey-group-' + i);
@@ -118,8 +129,10 @@ export class MareyComponent implements OnInit {
                             .data(trips[i]).enter()
                             .append('circle')
                             .attr('class', 'marey-point')
-                            .attr('cx', function(d) { return xScale(d.stopName) + margin; })
-                            .attr('cy', function(d) { return yScale(d.time); })
+                            .attr('cx', function(d) {
+                              return xScale(columnForStopId(d.stopId)) + margin; })
+                            .attr('cy', function(d) {
+                              return yScale(d.time); })
                             .attr('r', 3);
     }
   }
@@ -127,13 +140,16 @@ export class MareyComponent implements OnInit {
   drawLines(route: Route, xScale, yScale) {
     let d3 = this.d3;
     let margin =
-    this.diagramWidth / PURPLE_LINE.length / 2;
+    this.diagramWidth / route.stopSequence.length / 2;
+    let columnForStopId = this.stopColumnAligner(route.stopSequence);
 
     let join = this.plotArea.selectAll('path.line').data(this.plotData);
 
     let drawLineFunction = d3.line()
-                                   .x(function(d) { return xScale(d[0]) + margin; })
-                                   .y(function(d) { return yScale(d[1]); });
+                                   .x(function(d) {
+                                     return xScale(columnForStopId(d[0])) + margin; })
+                                   .y(function(d) {
+                                     return yScale(d[1]); });
 
     join.exit().remove(); //removes extraneous elements that do not have data
 
@@ -200,6 +216,13 @@ export class MareyComponent implements OnInit {
     endTime.setMinutes(0);
 
     return endTime;
+  }
+
+  stopColumnAligner(stopSequence) {
+    let columnFunction = function(stopId) {
+      return stopSequence.indexOf(stopId) + 1;
+    };
+    return columnFunction;
   }
 
 }

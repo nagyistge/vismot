@@ -162,10 +162,8 @@ export const NETWORK: any[] = [ // type: nodes
   }
 ];
 
-// Westbound Purple (Fri/Sat night)
-export const SCHEDULE_TITLE: string = 'Purple - Westbound (Friday & Saturday late night)';
-export const PURPLE_LINE: number[] = [1, 2, 3, 4, 5, 6, 7, 8];  // type: lineSequence
-export const STOP_TIMES: any[][] = [ // type: stopTimes
+export const PURPLE_WESTBOUND_SEQUENCE: number[] = [1, 2, 3, 4, 5, 6, 7, 8];  // type: lineSequence
+export const PURPLE_WESTBOUND_LATE: any[][] = [ // type: stopTimes
   [
     { stopId: 1, time: '00:31' },
     { stopId: 2, time: '00:33' },
@@ -228,12 +226,20 @@ export const STOP_TIMES: any[][] = [ // type: stopTimes
   ]
 ];
 
+export const PURPLE_WESTBOUND_LATE_ROUTE: Route = new Route(PURPLE_WESTBOUND_SEQUENCE, createTrips(PURPLE_WESTBOUND_LATE), 'purple', 'westbound', 'Friday & Saturday late night');
 
-let route_trips: Trip[] = STOP_TIMES.map(function(trip) {
-  let stopTimes: Arrival[] = trip.map(function(stopTime) { return new Arrival(parseTime(stopTime.time), stopTime.stopId); })
-  return new Trip(stopTimes);
-});
-export const PURPLE_ROUTE: Route = new Route(PURPLE_LINE, route_trips, 'purple', 'westbound', 'Friday & Saturday late night');
+function createTrips(stopTimes): Trip[] {
+  let trips: Trip[];
+  trips = stopTimes.map(function(trip) {
+    let arrivals: Arrival[] = trip.map(function(stopTime) {
+      return new Arrival(parseTime(stopTime.time), stopTime.stopId);
+    });
+    return new Trip(arrivals);
+  });
+
+  return trips;
+}
+
 
 function parseTime(timeString: string) {
   let hours: number;
