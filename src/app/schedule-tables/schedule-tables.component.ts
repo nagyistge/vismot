@@ -73,7 +73,7 @@ export class ScheduleTablesComponent implements OnInit {
     td.on('mouseover', function(d) {
       d3.select('#node-' + d.stopId)
         .classed('node-highlighted', true);
-      d3.select('#time-selected').text(d.time);
+      d3.select('#time-selected').text(self.timeFormat(d.time));
     }).on('mouseout', function(d) {
       d3.select('#node-' + d.stopId)
         .classed('node-highlighted', false);
@@ -145,5 +145,20 @@ export class ScheduleTablesComponent implements OnInit {
               .attr('x2', coordinates.x2 * scale)
               .attr('y2', coordinates.y2 * scale)
               .attr('class', 'network-line');
+  }
+
+  timeFormat(time: Date): string {
+    let format: string = '';
+    let hours = time.getHours();
+    let minutes = time.getMinutes();
+
+    // add leading zero
+    if (hours < 10) {
+      format += '0';
+    }
+
+    format += hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+
+    return format;
   }
 }
