@@ -7,7 +7,9 @@ import { Route } from '../route.model';
 import {
   STOPS,
   NETWORK,
-  PURPLE_WESTBOUND_LATE_ROUTE
+  PURPLE_WESTBOUND_LATE_ROUTE,
+  PURPLE_EASTBOUND_LATE_ROUTE,
+  RED_WESTBOUND_LATE_ROUTE
  } from '../data';
 
 
@@ -31,10 +33,12 @@ export class MareyComponent implements OnInit {
 
   ngOnInit() {
     let routes: Route[] = [
-      PURPLE_WESTBOUND_LATE_ROUTE
+      PURPLE_WESTBOUND_LATE_ROUTE,
+      PURPLE_EASTBOUND_LATE_ROUTE,
+      RED_WESTBOUND_LATE_ROUTE
     ];
 
-    let seq = routes[0].stopSequence;
+    let seq = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
 
     this.parseData(routes, seq);
     this.drawDiagram(routes, seq);

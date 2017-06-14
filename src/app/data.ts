@@ -163,6 +163,9 @@ export const NETWORK: any[] = [ // type: nodes
 ];
 
 export const PURPLE_WESTBOUND_SEQUENCE: number[] = [1, 2, 3, 4, 5, 6, 7, 8];  // type: lineSequence
+export const PURPLE_EASTBOUND_SEQUENCE: number[] = [8, 7, 6, 5, 4, 3, 2, 1];
+export const RED_WESTBOUND_SEQUENCE: number[] = [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 16];
+
 export const PURPLE_WESTBOUND_LATE: any[][] = [ // type: stopTimes
   [
     { stopId: 1, time: '00:31' },
@@ -226,7 +229,163 @@ export const PURPLE_WESTBOUND_LATE: any[][] = [ // type: stopTimes
   ]
 ];
 
+export const PURPLE_EASTBOUND_LATE: any[][] = [
+  [
+    { stopId: 8, time: '00:48' },
+    { stopId: 7, time: '00:50' },
+    { stopId: 6, time: '00:52' },
+    { stopId: 5, time: '00:54' },
+    { stopId: 4, time: '00:56' },
+    { stopId: 3, time: '00:57' },
+    { stopId: 2, time: '00:58' },
+    { stopId: 1, time: '01:01' }
+  ],
+  [
+    { stopId: 8, time: '01:08' },
+    { stopId: 7, time: '01:10' },
+    { stopId: 6, time: '01:12' },
+    { stopId: 5, time: '01:14' },
+    { stopId: 4, time: '01:16' },
+    { stopId: 3, time: '01:17' },
+    { stopId: 2, time: '01:18' },
+    { stopId: 1, time: '01:21' }
+  ],
+  [
+    { stopId: 8, time: '01:28' },
+    { stopId: 7, time: '01:30' },
+    { stopId: 6, time: '01:32' },
+    { stopId: 5, time: '01:34' },
+    { stopId: 4, time: '01:36' },
+    { stopId: 3, time: '01:37' },
+    { stopId: 2, time: '01:38' },
+    { stopId: 1, time: '01:41' }
+  ],
+  [
+    { stopId: 8, time: '01:48' },
+    { stopId: 7, time: '01:50' },
+    { stopId: 6, time: '01:52' },
+    { stopId: 5, time: '01:54' },
+    { stopId: 4, time: '01:56' },
+    { stopId: 3, time: '01:57' },
+    { stopId: 2, time: '01:58' },
+    { stopId: 1, time: '02:01' }
+  ],
+  [
+    { stopId: 8, time: '02:08' },
+    { stopId: 7, time: '02:10' },
+    { stopId: 6, time: '02:12' },
+    { stopId: 5, time: '02:14' },
+    { stopId: 4, time: '02:16' },
+    { stopId: 3, time: '02:17' },
+    { stopId: 2, time: '02:18' },
+    { stopId: 1, time: '02:21' }
+  ]
+];
+
+export const RED_WESTBOUND_LATE: any[][] = [
+  [
+    { stopId: 1, time: '00:41' },
+    { stopId: 2, time: '00:43' },
+    { stopId: 3, time: '00:44' },
+    { stopId: 4, time: '00:46' },
+    { stopId: 5, time: '00:48' },
+    { stopId: 6, time: '00:50' },
+    { stopId: 9, time: '00:52' },
+    { stopId: 10, time: '00:54' },
+    { stopId: 11, time: '00:55' },
+    { stopId: 12, time: '00:57' },
+    { stopId: 13, time: '01:00' },
+    { stopId: 14, time: '01:02' },
+    { stopId: 15, time: '01:06' },
+    { stopId: 16, time: '01:10' }
+  ],
+  [
+    { stopId: 1, time: '01:01' },
+    { stopId: 2, time: '01:03' },
+    { stopId: 3, time: '01:04' },
+    { stopId: 4, time: '01:06' },
+    { stopId: 5, time: '01:08' },
+    { stopId: 6, time: '01:10' },
+    { stopId: 9, time: '01:12' },
+    { stopId: 10, time: '01:14' },
+    { stopId: 11, time: '01:15' },
+    { stopId: 12, time: '01:17' },
+    { stopId: 13, time: '01:20' },
+    { stopId: 14, time: '01:22' },
+    { stopId: 15, time: '01:26' },
+    { stopId: 16, time: '01:30' }
+  ]
+  ,
+  [
+    { stopId: 1, time: '01:21' },
+    { stopId: 2, time: '01:23' },
+    { stopId: 3, time: '01:24' },
+    { stopId: 4, time: '01:26' },
+    { stopId: 5, time: '01:28' },
+    { stopId: 6, time: '01:30' },
+    { stopId: 9, time: '01:32' },
+    { stopId: 10, time: '01:34' },
+    { stopId: 11, time: '01:35' },
+    { stopId: 12, time: '01:37' },
+    { stopId: 13, time: '01:40' },
+    { stopId: 14, time: '01:42' },
+    { stopId: 15, time: '01:46' },
+    { stopId: 16, time: '01:50' }
+  ],
+  [
+    { stopId: 1, time: '01:41' },
+    { stopId: 2, time: '01:43' },
+    { stopId: 3, time: '01:44' },
+    { stopId: 4, time: '01:46' },
+    { stopId: 5, time: '01:48' },
+    { stopId: 6, time: '01:50' },
+    { stopId: 9, time: '01:52' },
+    { stopId: 10, time: '01:54' },
+    { stopId: 11, time: '01:55' },
+    { stopId: 12, time: '01:57' },
+    { stopId: 13, time: '02:00' },
+    { stopId: 14, time: '02:02' },
+    { stopId: 15, time: '02:06' },
+    { stopId: 16, time: '02:10' }
+  ],
+  [
+    { stopId: 1, time: '02:01' },
+    { stopId: 2, time: '02:03' },
+    { stopId: 3, time: '02:04' },
+    { stopId: 4, time: '02:06' },
+    { stopId: 5, time: '02:08' },
+    { stopId: 6, time: '02:10' },
+    { stopId: 9, time: '02:12' },
+    { stopId: 10, time: '02:14' },
+    { stopId: 11, time: '02:15' },
+    { stopId: 12, time: '02:17' },
+    { stopId: 13, time: '02:20' },
+    { stopId: 14, time: '02:22' },
+    { stopId: 15, time: '02:26' },
+    { stopId: 16, time: '02:30' }
+  ],
+  [
+    { stopId: 1, time: '02:21' },
+    { stopId: 2, time: '02:23' },
+    { stopId: 3, time: '02:24' },
+    { stopId: 4, time: '02:26' },
+    { stopId: 5, time: '02:28' },
+    { stopId: 6, time: '02:30' },
+    { stopId: 9, time: '02:32' },
+    { stopId: 10, time: '02:34' },
+    { stopId: 11, time: '02:35' },
+    { stopId: 12, time: '02:37' },
+    { stopId: 13, time: '02:40' },
+    { stopId: 14, time: '02:42' },
+    { stopId: 15, time: '02:46' },
+    { stopId: 16, time: '02:50' }
+  ]
+];
+
+
 export const PURPLE_WESTBOUND_LATE_ROUTE: Route = new Route(PURPLE_WESTBOUND_SEQUENCE, createTrips(PURPLE_WESTBOUND_LATE), 'purple', 'westbound', 'Friday & Saturday late night');
+export const PURPLE_EASTBOUND_LATE_ROUTE: Route = new Route(PURPLE_EASTBOUND_SEQUENCE, createTrips(PURPLE_EASTBOUND_LATE), 'purple', 'eastbound', 'Friday & Saturday late night');
+export const RED_WESTBOUND_LATE_ROUTE: Route = new Route(RED_WESTBOUND_SEQUENCE, createTrips(RED_WESTBOUND_LATE), 'red', 'westbound', 'Friday & Saturday late night');
 
 function createTrips(stopTimes): Trip[] {
   let trips: Trip[];
