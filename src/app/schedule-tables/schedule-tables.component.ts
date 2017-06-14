@@ -99,11 +99,10 @@ export class ScheduleTablesComponent implements OnInit {
       .attr('width', this.mapWidth)
       .attr('height', this.mapHeight);
 
-    var self = this;
-    graphNodes.forEach(function(node) {
-      self.drawNode(svgContainer, node, scale);
-      node.children.forEach(function(childId) {
-        let childNode = graphNodes.find(function(child) { return child.stopId == childId; });
+    graphNodes.forEach((node) => {
+      this.drawNode(svgContainer, node, scale);
+      node.children.forEach((childId) => {
+        let childNode = graphNodes.find((child) => child.stopId == childId);
         if (childNode) {  // test that child was successfully found
           let coords = {
             x1: node.x,
@@ -112,30 +111,30 @@ export class ScheduleTablesComponent implements OnInit {
             y2: childNode.y
           };
           // draw line from node to its child
-          self.drawLine(svgContainer, coords, scale);
+          this.drawLine(svgContainer, coords, scale);
         }
       });
     });
 
     // color stops exclusive to Purple line
-    var purpleStops = STOPS.filter(function(stop) { return stop.color == 'purple'; });
-    var purpleNodeIds = purpleStops.map(function(stop) { return '#node-' + stop.id; });
-    purpleNodeIds.forEach(function(nodeId) {
+    var purpleStops = STOPS.filter((stop) => stop.color == 'purple');
+    var purpleNodeIds = purpleStops.map((stop) => '#node-' + stop.id);
+    purpleNodeIds.forEach((nodeId) => {
       d3.select(nodeId).attr('class', 'network-node node-purple');
     });
 
     // color stops exclusive to Red line
-    var redStops = STOPS.filter(function(stop) { return stop.color == 'red'; });
-    var redNodeIds = redStops.map(function(stop) { return '#node-' + stop.id; });
-    redNodeIds.forEach(function(nodeId) {
+    var redStops = STOPS.filter((stop) => stop.color == 'red');
+    var redNodeIds = redStops.map((stop) => '#node-' + stop.id);
+    redNodeIds.forEach((nodeId) => {
       d3.select(nodeId).attr('class', 'network-node node-red');
     });
   }
 
   establishScale(graphNodes, scale) {
-    var xValues = graphNodes.map(function(el) { return el.x; });
-    var xMax = Math.max.apply(null, graphNodes.map(function(el) { return el.x; }));
-    var yMax = Math.max.apply(null, graphNodes.map(function(el) { return el.y; }));
+    var xValues = graphNodes.map((el) => el.x);
+    var xMax = Math.max.apply(null, graphNodes.map((el) => el.x));
+    var yMax = Math.max.apply(null, graphNodes.map((el) => el.y));
 
     this.mapWidth = (xMax + 1) * scale;
     this.mapHeight = (yMax + 1) * scale;
