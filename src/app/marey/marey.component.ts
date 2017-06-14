@@ -7,7 +7,6 @@ import { Route } from '../route.model';
 import {
   STOPS,
   NETWORK,
-  PURPLE_WESTBOUND_SEQUENCE,
   PURPLE_WESTBOUND_LATE_ROUTE
  } from '../data';
 
@@ -23,20 +22,25 @@ export class MareyComponent implements OnInit {
   private diagramHeight: number = 500;
   private plotArea: any;
   private stopValues: any[];
-  private plotData: any[][][];
+  private plotData: any[][][][];
+
 
   constructor(d3Service: D3Service) {
      this.d3 = d3Service.getD3(); // obtain the d3 object from the D3 Service
   }
 
   ngOnInit() {
-    let route: Route = PURPLE_WESTBOUND_LATE_ROUTE;
+    let routes: Route[] = [
+      PURPLE_WESTBOUND_LATE_ROUTE
+    ];
 
-    this.parseData(route);
-    this.drawDiagram(route);
+    let seq = routes[0].stopSequence;
+
+    this.parseData(routes, seq);
+    this.drawDiagram(routes, seq);
   }
 
-  drawDiagram(route: Route) {
+  drawDiagram(routes: Route[], includedStopSequence: number[]) {
     var d3 = this.d3;
 
     var margin = {top: 150, right: 20, bottom: 30, left: 50};
@@ -51,7 +55,7 @@ export class MareyComponent implements OnInit {
                       .attr("transform",
                             "translate(" + margin.left + "," + margin.top + ")");
 
-    let stopsIncluded = route.stopSequence;
+    let stopsIncluded = includedStopSequence;
     let stopData =  stopsIncluded.map(function(id) {
       return {
         stopId: id,
@@ -71,42 +75,57 @@ export class MareyComponent implements OnInit {
     });
 
     let stopIdsScale = d3.scaleLinear()
-                         .domain([1, route.stopSequence.length+1])
+                         .domain([1, includedStopSequence.length+1])
                          .range([0, this.diagramWidth]);
     let stopsScale = d3.scaleBand()
                        .domain(stopNames)
                        .range([0, this.diagramWidth]);
     let timeScale = d3.scaleTime()
-                      .domain([this.earliestTime(route), this.latestTime(route)])
+                      .domain([this.earliestTime(routes[0]), this.latestTime(routes[0])])
                       .range([0, this.diagramHeight]);
 
-    this.drawPoints(route, stopIdsScale, timeScale);
-    this.drawLines(route, stopIdsScale, timeScale);
+    let xAxis = d3.axisTop(stopsScale).ticks(includedStopSequence.length);
 
-
-    let xAxis = d3.axisTop(stopsScale);
-    let yAxis = d3.axisLeft(timeScale);
-
-    yAxis.tickArguments([d3.timeMinute.every(15)]);
-
+    // add main x-axis with rotated text (stops)
     let xAxisLabel = this.plotArea.append("g")
-                                  .attr("class", "axis")
+                                  .attr('class', 'stops-axis')
                                   .call(xAxis);
-
     xAxisLabel.selectAll("text")
               .attr("y", 0) // center along tick
               .attr("x", 9) // adjust 'left' margin past tick
               .attr("dy", ".35em")
               .attr("transform", "rotate(-90)")
               .style("text-anchor", "start");
+
+    function make_x_gridlines() {
+      return d3.axisTop(stopsScale)
+               .ticks(includedStopSequence.length)
+               .tickFormat(function() { return ''; }); // set text format to be blank for all ticks
+    }
+    // add the X gridlines
+    this.plotArea.append("g")
+                 .attr("class", "grid")
+                 .attr("transform", "translate(0," + this.diagramHeight + ")")
+                 .call(make_x_gridlines().tickSize(this.diagramHeight));
+
+
+    let yAxis = d3.axisLeft(timeScale).tickArguments([d3.timeMinute.every(15)]);
+    // add y-axis (time)
     this.plotArea.append("g")
                  .attr("class", "axis")
                  .call(yAxis);
+
+
+    let self = this;
+    routes.forEach(function(route, i) {
+      self.drawLines(route, self.plotData[i], stopIdsScale, timeScale, includedStopSequence);
+      self.drawPoints(route, stopIdsScale, timeScale, includedStopSequence);
+    })
   }
 
-  drawPoints(route: Route, xScale, yScale) {
+  drawPoints(route: Route, xScale, yScale, includedStopSequence: number[]) {
     let d3 = this.d3;
-    let columnForStopId = this.stopColumnAligner(route.stopSequence);
+    let columnForStopId = this.stopColumnAligner(includedStopSequence);
 
     let trips = route.trips.map(function(trip) {
       return trip.stops.map(function(arrival) {
@@ -120,7 +139,7 @@ export class MareyComponent implements OnInit {
         };
       });
     });
-    let margin = this.diagramWidth / route.stopSequence.length / 2;
+    let margin = this.diagramWidth / includedStopSequence.length / 2;
 
     for (let i = 0; i < trips.length; i++) {
       // add group of circles for each trip
@@ -129,27 +148,24 @@ export class MareyComponent implements OnInit {
                             .data(trips[i]).enter()
                             .append('circle')
                             .attr('class', 'marey-point')
-                            .attr('cx', function(d) {
-                              return xScale(columnForStopId(d.stopId)) + margin; })
-                            .attr('cy', function(d) {
-                              return yScale(d.time); })
+                            .attr('cx', (d) => xScale(columnForStopId(d.stopId)) + margin)
+                            .attr('cy', (d) => yScale(d.time))
                             .attr('r', 3);
     }
   }
 
-  drawLines(route: Route, xScale, yScale) {
+  drawLines(route: Route, data, xScale, yScale, includedStopSequence: number[]) {
     let d3 = this.d3;
     let margin =
-    this.diagramWidth / route.stopSequence.length / 2;
-    let columnForStopId = this.stopColumnAligner(route.stopSequence);
-
-    let join = this.plotArea.selectAll('path.line').data(this.plotData);
+    this.diagramWidth / includedStopSequence.length / 2;
+    let columnForStopId = this.stopColumnAligner(includedStopSequence);
 
     let drawLineFunction = d3.line()
-                                   .x(function(d) {
-                                     return xScale(columnForStopId(d[0])) + margin; })
-                                   .y(function(d) {
-                                     return yScale(d[1]); });
+                             .x((d) => xScale(columnForStopId(d[0])) + margin)
+                             .y((d) => yScale(d[1]));
+
+    let newRouteSet = this.plotArea.append('g').attr('class', 'route-set');
+    let join = newRouteSet.selectAll('path.line').data(data);
 
     join.exit().remove(); //removes extraneous elements that do not have data
 
@@ -157,18 +173,18 @@ export class MareyComponent implements OnInit {
         .append('path') // this adds new elements for data that had no place to go
         .merge(join) // puts the update and enter sections of the join together so that all following methods will act on all elements.
         .attr('d', drawLineFunction)
-        .attr('class', function(d, i) {
-          return 'line marey-line ' + 'route-' + route.colorName;
-        });
+        .attr('class', (d, i) => 'line marey-line route-' + route.colorName);
   }
 
-  parseData(route: Route) {
-    this.stopValues = route.stopSequence.map(function(el) {
-      return STOPS.find(function(stop) {
-        return stop.id == el;
-      });
+  parseData(routes: Route[], includedStopSequence: number[]) {
+    this.stopValues = includedStopSequence.map((el) => {
+      return STOPS.find((stop) => stop.id == el);
     });
 
+    // reset plot data
+    this.plotData = [];
+
+    routes.forEach((route) => {
 
     let lineData: any[][][] = [];
 
@@ -179,7 +195,8 @@ export class MareyComponent implements OnInit {
       lineData.push(line);
     });
 
-    this.plotData = lineData;
+    this.plotData.push(lineData);
+  });
   }
 
   earliestTime(route: Route) {

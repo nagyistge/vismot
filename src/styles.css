@@ -42,6 +42,12 @@
   shape-rendering: crispEdges;
 }
 
+.grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
 .marey-point {
   stroke-width: 0;
   fill: black;
