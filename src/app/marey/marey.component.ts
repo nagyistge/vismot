@@ -9,7 +9,8 @@ import {
   NETWORK,
   PURPLE_WESTBOUND_LATE_ROUTE,
   PURPLE_EASTBOUND_LATE_ROUTE,
-  RED_WESTBOUND_LATE_ROUTE
+  RED_WESTBOUND_LATE_ROUTE,
+  GOLD_NORTHBOUND_WEEKDAY_ROUTE
  } from '../data';
 
 
@@ -20,7 +21,7 @@ import {
 })
 export class MareyComponent implements OnInit {
   private d3: D3; // <-- Define the private member which will hold the d3 reference
-  private diagramWidth: number = 500;
+  private diagramWidth: number = 1000;
   private diagramHeight: number = 500;
   private plotArea: any;
   private stopValues: any[];
@@ -35,10 +36,14 @@ export class MareyComponent implements OnInit {
     let routes: Route[] = [
       PURPLE_WESTBOUND_LATE_ROUTE,
       PURPLE_EASTBOUND_LATE_ROUTE,
-      RED_WESTBOUND_LATE_ROUTE
+      RED_WESTBOUND_LATE_ROUTE,
+      GOLD_NORTHBOUND_WEEKDAY_ROUTE
     ];
-
-    let seq = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+    let seq = [];
+    let end = 43;
+    for (let i = 1; i <= end; i++) {
+      seq.push(i);
+    }
 
     this.parseData(routes, seq);
     this.drawDiagram(routes, seq);
@@ -85,7 +90,7 @@ export class MareyComponent implements OnInit {
                        .domain(stopNames)
                        .range([0, this.diagramWidth]);
     let timeScale = d3.scaleTime()
-                      .domain([this.earliestTime(routes[0]), this.latestTime(routes[0])])
+                      .domain([this.earliestTime(routes[0]), this.latestTime(routes[routes.length-1])])
                       .range([0, this.diagramHeight]);
 
     let xAxis = d3.axisTop(stopsScale).ticks(includedStopSequence.length);
@@ -120,10 +125,9 @@ export class MareyComponent implements OnInit {
                  .call(yAxis);
 
 
-    let self = this;
-    routes.forEach(function(route, i) {
-      self.drawLines(route, self.plotData[i], stopIdsScale, timeScale, includedStopSequence);
-      self.drawPoints(route, stopIdsScale, timeScale, includedStopSequence);
+    routes.forEach((route, i) => {
+      this.drawLines(route, this.plotData[i], stopIdsScale, timeScale, includedStopSequence);
+      // this.drawPoints(route, stopIdsScale, timeScale, includedStopSequence);
     })
   }
 
@@ -143,8 +147,11 @@ export class MareyComponent implements OnInit {
         };
       });
     });
-    let margin = this.diagramWidth / includedStopSequence.length / 2;
-
+    let margin =
+    this.diagramWidth
+// this.plotArea.attr('width')
+ / (includedStopSequence.length) / 2;
+// margin = 50;
     for (let i = 0; i < trips.length; i++) {
       // add group of circles for each trip
       let newGroup = this.plotArea.append('g').attr('id', 'marey-group-' + i);
@@ -161,7 +168,10 @@ export class MareyComponent implements OnInit {
   drawLines(route: Route, data, xScale, yScale, includedStopSequence: number[]) {
     let d3 = this.d3;
     let margin =
-    this.diagramWidth / includedStopSequence.length / 2;
+    this.diagramWidth
+// this.plotArea.attr('width')
+     / (includedStopSequence.length) / 2;
+     console.log(margin);
     let columnForStopId = this.stopColumnAligner(includedStopSequence);
 
     let drawLineFunction = d3.line()

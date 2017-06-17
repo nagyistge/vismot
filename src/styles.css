@@ -60,7 +60,7 @@
 }
 
 .marey-line {
-  stroke-width: 2px;
+  stroke-width: 1px;
 }
 
 .route-purple {
@@ -69,4 +69,8 @@
 
 .route-red {
   stroke: red;
+}
+
+.route-gold {
+  stroke: gold;
 }

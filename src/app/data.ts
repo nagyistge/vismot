@@ -46,21 +46,49 @@ stopTimes:
 // Purple & Red Line stops (starting at east terminus)
 export const STOPS: any[] = [   // type:  stops
   { name: 'Union Station', id:  1, color: 'black' },
-  { name: 'Civic Center/Grand Park', id: 2, color: 'black' },
+  { name: 'Civic Center / Grand Park', id: 2, color: 'black' },
   { name: 'Pershing Square', id: 3, color: 'black' },
-  { name: '7th St/Metro Center', id: 4, color: 'black' },
-  { name: 'Westlake/MacArthur Park', id: 5, color: 'black' },
-  { name: 'Wilshire/Vermont', id: 6, color: 'black' },
-  { name: 'Wilshire/Normandie', id: 7, color: 'purple' },
-  { name: 'Wilshire/Western', id: 8, color: 'purple' },
-  { name: 'Vermont/Beverly', id: 9, color: 'red' },
-  { name: 'Vermont/Santa Monica', id: 10, color: 'red' },
-  { name: 'Vermont/Sunset', id: 11, color: 'red' },
-  { name: 'Hollywood/Western', id: 12, color: 'red' },
-  { name: 'Hollywood/Vine', id: 13, color: 'red' },
-  { name: 'Hollywood/Highland', id: 14, color: 'red' },
-  { name: 'Universal/Studio City', id: 15, color: 'red' },
-  { name: 'North Hollywood', id: 16, color: 'red' }
+  { name: '7th St / Metro Center', id: 4, color: 'black' },
+  { name: 'Westlake / MacArthur Park', id: 5, color: 'black' },
+  { name: 'Wilshire / Vermont', id: 6, color: 'black' },
+  { name: 'Wilshire / Normandie', id: 7, color: 'purple' },
+  { name: 'Wilshire / Western', id: 8, color: 'purple' },
+  { name: 'Vermont / Beverly', id: 9, color: 'red' },
+  { name: 'Vermont / Santa Monica', id: 10, color: 'red' },
+  { name: 'Vermont / Sunset', id: 11, color: 'red' },
+  { name: 'Hollywood / Western', id: 12, color: 'red' },
+  { name: 'Hollywood / Vine', id: 13, color: 'red' },
+  { name: 'Hollywood / Highland', id: 14, color: 'red' },
+  { name: 'Universal / Studio City', id: 15, color: 'red' },
+  { name: 'North Hollywood', id: 16, color: 'red' },
+
+  { name: 'Atlantic', id: 17, color: 'gold' },
+  { name: 'East LA Civic Center', id: 18, color: 'gold' },
+  { name: 'Maravilla', id: 19, color: 'gold' },
+  { name: 'Indiana', id: 20, color: 'gold' },
+  { name: 'Sato', id: 21, color: 'gold' },
+  { name: 'Mariachi Plaza / Boyle Heights', id: 22, color: 'gold' },
+  { name: 'Pico / Aliso', id: 23, color: 'gold' },
+  { name: 'Little Tokyo / Arts District', id: 24, color: 'gold' },
+  { name: 'Union Station', id: 25, color: 'gold' },
+  { name: 'Chinatown', id: 26, color: 'gold' },
+  { name: 'Lincoln Heights / Cypress Hill', id: 27, color: 'gold' },
+  { name: 'Heritage Square / Arroyo', id: 28, color: 'gold' },
+  { name: 'Southwest Museum', id: 29, color: 'gold' },
+  { name: 'Highland Park', id: 30, color: 'gold' },
+  { name: 'South Pasadena', id: 31, color: 'gold' },
+  { name: 'Fillmore', id: 32, color: 'gold' },
+  { name: 'Del Mar', id: 33, color: 'gold' },
+  { name: 'Memorial Park', id: 34, color: 'gold' },
+  { name: 'Lake', id: 35, color: 'gold' },
+  { name: 'Allen', id: 36, color: 'gold' },
+  { name: 'Sierra Madre Villa', id: 37, color: 'gold' },
+  { name: 'Arcadia', id: 38, color: 'gold' },
+  { name: 'Monrovia', id: 39, color: 'gold' },
+  { name: 'Duarte / City of Hope', id: 40, color: 'gold' },
+  { name: 'Irwindale', id: 41, color: 'gold' },
+  { name: 'Azusa Downtown', id: 42, color: 'gold' },
+  { name: 'APU / Citrus College', id: 43, color: 'gold' },
 ];
 
 export const NETWORK: any[] = [ // type: nodes
@@ -165,6 +193,7 @@ export const NETWORK: any[] = [ // type: nodes
 export const PURPLE_WESTBOUND_SEQUENCE: number[] = [1, 2, 3, 4, 5, 6, 7, 8];  // type: lineSequence
 export const PURPLE_EASTBOUND_SEQUENCE: number[] = [8, 7, 6, 5, 4, 3, 2, 1];
 export const RED_WESTBOUND_SEQUENCE: number[] = [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 16];
+export const GOLD_NORTHBOUND_SEQUENCE: number[] = [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43];
 
 export const PURPLE_WESTBOUND_LATE: any[][] = [ // type: stopTimes
   [
@@ -382,10 +411,43 @@ export const RED_WESTBOUND_LATE: any[][] = [
   ]
 ];
 
+export const GOLD_NORTHBOUND_WEEKDAY: any[][] = [
+  [
+    { stopId: 17, time: '04:20' },
+    { stopId: 18, time: '04:22' },
+    { stopId: 19, time: '04:25' },
+    { stopId: 20, time: '04:30' },
+    { stopId: 21, time: '04:33' },
+    { stopId: 22, time: '04:34' },
+    { stopId: 23, time: '04:36' },
+    { stopId: 24, time: '04:40' },
+    { stopId: 25, time: '04:44' },
+    { stopId: 26, time: '04:46' },
+    { stopId: 27, time: '04:48' },
+    { stopId: 28, time: '04:50' },
+    { stopId: 29, time: '04:52' },
+    { stopId: 30, time: '04:56' },
+    { stopId: 31, time: '04:59' },
+    { stopId: 32, time: '05:02' },
+    { stopId: 33, time: '05:04' },
+    { stopId: 34, time: '05:05' },
+    { stopId: 35, time: '05:07' },
+    { stopId: 36, time: '05:09' },
+    { stopId: 37, time: '05:12' },
+    { stopId: 38, time: '05:17' },
+    { stopId: 39, time: '05:20' },
+    { stopId: 40, time: '05:24' },
+    { stopId: 41, time: '05:28' },
+    { stopId: 42, time: '05:30' },
+    { stopId: 43, time: '05:32' }
+  ]
+];
+
 
 export const PURPLE_WESTBOUND_LATE_ROUTE: Route = new Route(PURPLE_WESTBOUND_SEQUENCE, createTrips(PURPLE_WESTBOUND_LATE), 'purple', 'westbound', 'Friday & Saturday late night');
 export const PURPLE_EASTBOUND_LATE_ROUTE: Route = new Route(PURPLE_EASTBOUND_SEQUENCE, createTrips(PURPLE_EASTBOUND_LATE), 'purple', 'eastbound', 'Friday & Saturday late night');
 export const RED_WESTBOUND_LATE_ROUTE: Route = new Route(RED_WESTBOUND_SEQUENCE, createTrips(RED_WESTBOUND_LATE), 'red', 'westbound', 'Friday & Saturday late night');
+export const GOLD_NORTHBOUND_WEEKDAY_ROUTE: Route = new Route(GOLD_NORTHBOUND_SEQUENCE, createTrips(GOLD_NORTHBOUND_WEEKDAY), 'gold', 'northbound', 'Weekday');
 
 function createTrips(stopTimes): Trip[] {
   let trips: Trip[];
